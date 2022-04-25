@@ -7,7 +7,10 @@
 #include <rm_common/ros_utilities.h>
 #include <rm_common/ori_tool.h>
 #include <geometry_msgs/Quaternion.h>
+ chassis/reaction_wheel
 #include <pluginlib/class_list_macros.hpp>
+
+ chassis/reaction_wheel
 
 namespace rm_chassis_controllers
 {
@@ -54,11 +57,15 @@ bool ReactionWheelController::init(hardware_interface::RobotHW* robot_hw, ros::N
     ROS_ERROR("Params inertia_wheel_ doesn't given (namespace: %s)", controller_nh.getNamespace().c_str());
     return false;
   }
+chassis/reaction_wheel
   if (!controller_nh.getParam("dt", dt))
   {
     ROS_ERROR("Params dt doesn't given (namespace: %s)", controller_nh.getNamespace().c_str());
     return false;
   }
+
+
+ chassis/reaction_wheel
   XmlRpc::XmlRpcValue q, r;
   controller_nh.getParam("q", q);
   controller_nh.getParam("r", r);
@@ -111,12 +118,15 @@ bool ReactionWheelController::init(hardware_interface::RobotHW* robot_hw, ros::N
   b_ = exp.block(0, STATE_DIM, STATE_DIM, CONTROL_DIM);
 
   Lqr<double> lqr(a_, b_, q_, r_);
+chassis/reaction_wheel
   if (!lqr.computeK())
   {
     ROS_ERROR("Failed to compute K of LQR.");
     return false;
   }
 
+
+ chassis/reaction_wheel
   k_ = lqr.getK();
   return true;
 }
@@ -149,4 +159,7 @@ void ReactionWheelController::update(const ros::Time& time, const ros::Duration&
 }
 
 }  // namespace rm_chassis_controllers
+chassis/reaction_wheel
 PLUGINLIB_EXPORT_CLASS(rm_chassis_controllers::ReactionWheelController, controller_interface::ControllerBase)
+
+ chassis/reaction_wheel
